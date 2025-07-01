@@ -4,6 +4,9 @@ import axios from 'axios';
 import Home from '.';
 
 describe('Test Home', () => {
+  afterEach( () => {
+    jest.restoreAllMocks();
+  })
   test('Test Render', async () => {
     //Arrange: Setup the mock API
     //Listen for any GET requests using the axios module
@@ -29,6 +32,27 @@ describe('Test Home', () => {
               ],
             },
           });
+        default:
+          return Promise.resolve({
+            data: {
+              status: 'fail',
+            },
+          });
+      }
+    });
+
+    //Act: Call the Home page
+    render(<Home />);
+
+    //Assert: Check the values in the rendered Home page.
+    //There should be 2 categories as defined in the mock response above
+    expect(await screen.findAllByTestId(/category-item/i)).toHaveLength(2);
+    //The word Appeateasers should be in there as defined in the mock response above.
+    expect(await screen.findByText('Appeteasers')).toBeInTheDocument();
+  });
+
+    //Integration test: same as functional, but no mocks
+    test('Test Render', async () => {
         default:
           return Promise.resolve({
             data: {
