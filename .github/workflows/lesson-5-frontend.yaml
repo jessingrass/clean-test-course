@@ -35,4 +35,4 @@ jobs:
       - name: ZAP Proxy
       - uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: 'https://hangryhippo.quantic.host'
+          target: 'http://hangry-web-dev.us-east-1.elasticbeanstalk.com/'
